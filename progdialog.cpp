@@ -30,7 +30,7 @@ ProgDialog::ProgDialog(QWidget *parent) :
      * Create and set up the QLabel for the animation
      */
     QLabel* gifLabel = new QLabel(this);
-    QMovie* movie = new QMovie(":/Images/Automation1.gif");
+    QMovie* movie = new QMovie(":/Images/Automation1.webp");
     gifLabel->setMovie(movie);
     movie->start();
 
