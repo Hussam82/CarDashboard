@@ -45,8 +45,6 @@ RESOURCES += \
     Resources.qrc
 
 DISTFILES += \
-    CMakeLists.txt \
-    CMakeLists.txt.user \
     CarDashboard.pro.user \
     License.txt \
     README.md
