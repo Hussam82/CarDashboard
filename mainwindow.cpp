@@ -87,7 +87,7 @@ void MainWindow::ReadTempAndHumidity()
 {
     QProcess process;
     QStringList args;
-    args << "cat" << "/dev/test_file";
+    args << "cat" << "/dev/dht11km";
 //    args << "cat" << "/dev/dht11km";
     process.start("cat", args);
     if (!process.waitForFinished())
