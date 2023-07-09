@@ -45,26 +45,19 @@ LoginDialog::~LoginDialog()
 /* Custom public functions */
 void LoginDialog::insert_char(QString new_text)
 {
-    QWidget *focusWidget = QApplication::focusWidget();
-    // Check which QLineEdit widget has focus
-    if(focusWidget = ui->idLineEdit)
-    {
-        QString current_text = ui->idLineEdit->text();
-        new_text = current_text + new_text;
-        ui->idLineEdit->setText(new_text);
-    }
-    else
-    {
-        qDebug() << "No line edit has focus.";
-    }
+    QString current_text = ui->idLineEdit->text();
+    new_text = current_text + new_text;
+    ui->idLineEdit->setText(new_text);
 }
 
 
 /* Show the available IDs to choose 1 (if you don't remember yours) */
 void LoginDialog::on_validIdsButton_clicked()
 {
+    /* Read the email in the line edit and remove any spaces*/
+    auto email = ui->idLineEdit->text().remove(" ").remove("\n");
     /* ID line edit is empty */
-    if(ui->idLineEdit->text() == EMPTY)
+    if(email.isEmpty())
     {
         return;
     }
@@ -73,7 +66,7 @@ void LoginDialog::on_validIdsButton_clicked()
     auto msgbox = new QMessageBox(this);
     msgbox->setGeometry(850, 450, 250, 200);
     msgbox->setWindowTitle("Loading...");
-    msgbox->setText("Registeration in progress.");
+    msgbox->setText(tr("%1 registeration in progress.").arg(email));
     msgbox->setStandardButtons(QMessageBox::NoButton);
     msgbox->open();
 
@@ -84,26 +77,35 @@ void LoginDialog::on_validIdsButton_clicked()
         QMessageBox registerMB;
         if (reply->error() == QNetworkReply::NoError)
         {
-            QByteArray responseData = reply->readAll();
             registerMB.information(this,
                                 tr("Check your email."),
-                                tr("Your account has been registered successfuly."),
+                                tr("%1 has been registered successfuly.").arg(email),
                                 QMessageBox::Ok);
         }else
         {
-            QByteArray responseData = reply->readAll();
-            registerMB.information(this,
-                                tr("Incomplete registeration."),
-                                tr("Your account is already registered."),
+            /* If the connection is incomplete */
+            if( reply->errorString().contains("Bad Request") )
+            {
+                registerMB.information(this,
+                                    tr("Incomplete registeration."),
+                                    tr("%1 is invalid format of an email or already registered.").arg(email),
+                                    QMessageBox::Ok);
+                qDebug() << "Request failed:" << reply->errorString();            }
+            /* If their's no internet */
+            else
+            {
+                QMessageBox failedConnectionMB;
+                failedConnectionMB.critical(this,
+                                tr("Failed to reach server."),
+                                tr("Check your internet connection."),
                                 QMessageBox::Ok);
-            qDebug() << "Request failed:" << reply->errorString();
+            }
         }
     });
     QNetworkRequest request(QUrl("https://adas-eece2023.azurewebsites.net/User/Register"));
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     /* Create the JSON data to send */
-    QString email = ui->idLineEdit->text();
     QByteArray jsonData = QString(R"({"email": "%1"})").arg(email).toUtf8();
     manager->post(request, jsonData);
 }
@@ -112,8 +114,10 @@ void LoginDialog::on_validIdsButton_clicked()
 /* Submit the ID */
 void LoginDialog::on_submitButton_clicked()
 {
+    /* Read the email in the life edit and remove any spaces and new lines */
+    auto email = ui->idLineEdit->text().remove(" ").remove("\n");
     /* ID line edit is empty */
-    if(ui->idLineEdit->text() == EMPTY)
+    if(email.isEmpty())
     {
         return;
     }
@@ -122,16 +126,13 @@ void LoginDialog::on_submitButton_clicked()
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     /* Create the JSON data to send */
-    QString email = ui->idLineEdit->text();
-    /* Remove any spaces in the email */
-    email = email.remove(" ");
     QByteArray jsonData = QString(R"({"email": "%1"})").arg(email).toUtf8();
 
     /* Display a popup message with no buttons */
     auto msgbox = new QMessageBox(this);
     msgbox->setGeometry(850, 450, 250, 200);
     msgbox->setWindowTitle("Loading...");
-    msgbox->setText("Email confirmation in progress.");
+    msgbox->setText( tr("%1 confirmation in progress.").arg(email) );
     msgbox->setStandardButtons(QMessageBox::NoButton);
     msgbox->open();
 
@@ -140,6 +141,7 @@ void LoginDialog::on_submitButton_clicked()
     manager->post(request, jsonData);
     connect(manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply *reply)
     {
+        qDebug() << email;
         delete msgbox;
         if (reply->error() == QNetworkReply::NoError)
         {
@@ -149,8 +151,8 @@ void LoginDialog::on_submitButton_clicked()
             {
                 QMessageBox bannMB;
                 bannMB.critical(this,
-                                tr("Your account is banned"),
-                                tr("Contact a supervisor to unlock."),
+                                tr("Banned account."),
+                                tr("Check your email: %1 to unlock.").arg(email),
                                 QMessageBox::Ok);
             }
             /* ID exists */
@@ -167,7 +169,7 @@ void LoginDialog::on_submitButton_clicked()
                 QMessageBox bannMB;
                 bannMB.critical(this,
                                 tr("Please register first."),
-                                tr("ID doesn't exist."),
+                                tr("%1 doesn't have access.").arg(email),
                                 QMessageBox::Ok);
             }
             else
@@ -177,7 +179,19 @@ void LoginDialog::on_submitButton_clicked()
         }
         else
         {
-            qDebug() << "Request failed:" << reply->errorString();
+            /* If the connection is incomplete */
+            if( reply->errorString().contains("Bad Request") )
+            {
+                qDebug() << "Request failed:" << reply->errorString();            }
+            /* If their's no internet */
+            else
+            {
+                QMessageBox failedConnectionMB;
+                failedConnectionMB.critical(this,
+                                tr("Failed to reach server."),
+                                tr("Check your internet connection."),
+                                QMessageBox::Ok);
+            }
         }
     });
 }

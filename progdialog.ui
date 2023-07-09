@@ -107,7 +107,6 @@
    <zorder>addButton</zorder>
    <zorder>deleteButton</zorder>
    <zorder>groupBox</zorder>
-   <zorder>label_3</zorder>
   </widget>
   <widget class="QPushButton" name="saveButton">
    <property name="geometry">
@@ -191,7 +190,6 @@
        </item>
       </layout>
       <zorder>listWidget_2</zorder>
-      <zorder>groupBox_3</zorder>
       <zorder>label_6</zorder>
      </widget>
     </item>
@@ -213,16 +211,6 @@
       <item>
        <property name="text">
         <string>Customer reports</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>test-report-1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>test-report-2</string>
        </property>
       </item>
      </widget>
@@ -250,7 +238,6 @@
    </layout>
    <zorder>pushButton</zorder>
    <zorder>comboBox</zorder>
-   <zorder>label_6</zorder>
    <zorder>groupBox_6</zorder>
   </widget>
  </widget>

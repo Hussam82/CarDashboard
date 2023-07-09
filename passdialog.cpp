@@ -73,20 +73,34 @@ void PassDialog::on_forgotButton_clicked()
             QMessageBox forgotPassMB;
             forgotPassMB.information(this,
                             tr("Password has changed."),
-                            tr("You have received the new password on your email."),
+                            tr("You have received the new password on %1.").arg(LoginDialog::global_user_email),
                             QMessageBox::Ok);
         }
         else
         {
-            qDebug() << "Request failed:" << reply->errorString();
+            /* If the connection is incomplete */
+            if( reply->errorString().contains("Bad Request") )
+            {
+                qDebug() << "Request failed:" << reply->errorString();            }
+            /* If their's no internet */
+            else
+            {
+                QMessageBox failedConnectionMB;
+                failedConnectionMB.critical(this,
+                                tr("Failed to reach server."),
+                                tr("Check your internet connection."),
+                                QMessageBox::Ok);
+            }
         }
     });
 }
 
 void PassDialog::on_signButton_clicked()
 {
+    /* Read the password in the line edit and remove any spaces*/
+    auto pass = ui->passLineEdit->text().remove(" ").remove("\n");
     /* ID line edit is empty */
-    if(ui->passLineEdit->text().isEmpty())
+    if(pass.isEmpty())
     {
         return;
     }
@@ -95,9 +109,6 @@ void PassDialog::on_signButton_clicked()
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     /* Create the JSON data to send */
-    QString pass = ui->passLineEdit->text();
-    /* Remove any spaces in the password */
-    pass = pass.remove(" ");
     QByteArray jsonData = QString(R"({"email": "%1", "password": "%2"})").arg(LoginDialog::global_user_email) \
                                                                           .arg(pass).toUtf8();
     qDebug() << jsonData;
@@ -142,22 +153,46 @@ void PassDialog::on_signButton_clicked()
                     {
                         dialog_prog = new ProgDialog(this);
                         dialog_prog->exec();
-                        accept();
+                        reject();
                     }
                     else
                     {
-                        QMessageBox wrongPassMB;
-                        wrongPassMB.critical(this,
-                                        tr("Wrong password."),
-                                        tr("You only have %1 remaining login attempts.").arg(remainingLoginAttempts),
-                                        QMessageBox::Ok);
+                        if(remainingLoginAttempts != 0)
+                        {
+                            QMessageBox wrongPassMB;
+                            wrongPassMB.critical(this,
+                                            tr("Wrong password."),
+                                            tr("You only have %1 remaining login attempts.").arg(remainingLoginAttempts),
+                                            QMessageBox::Ok);
+                        }
+                        else
+                        {
+                            QMessageBox bannMB;
+                            bannMB.critical(this,
+                                            tr("Banned account."),
+                                            tr("Check your email: %1 to unlock.").arg(LoginDialog::global_user_email),
+                                            QMessageBox::Ok);
+                            reject();
+                        }
                     }
                 }
             }
         }
         else
         {
-            qDebug() << "Request failed:" << reply->errorString();
+            /* If the connection is incomplete */
+            if( reply->errorString().contains("Bad Request") )
+            {
+                qDebug() << "Request failed:" << reply->errorString();            }
+            /* If their's no internet */
+            else
+            {
+                QMessageBox failedConnectionMB;
+                failedConnectionMB.critical(this,
+                                tr("Failed to reach server."),
+                                tr("Check your internet connection."),
+                                QMessageBox::Ok);
+            }
         }
     });
 }

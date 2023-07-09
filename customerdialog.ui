@@ -55,7 +55,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>370</y>
+      <y>270</y>
       <width>80</width>
       <height>61</height>
      </rect>
@@ -66,6 +66,9 @@
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="styleSheet">
+     <string notr="true">image:url(:/Images/fix.png)</string>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -74,7 +77,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>351</y>
+      <y>430</y>
       <width>80</width>
       <height>14</height>
      </rect>
@@ -136,7 +139,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>431</y>
+      <y>331</y>
       <width>80</width>
       <height>16</height>
      </rect>
@@ -167,7 +170,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>269</y>
+      <y>231</y>
       <width>80</width>
       <height>16</height>
      </rect>
@@ -245,7 +248,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>290</y>
+      <y>369</y>
       <width>80</width>
       <height>61</height>
      </rect>
@@ -257,7 +260,7 @@
      </sizepolicy>
     </property>
     <property name="styleSheet">
-     <string notr="true">image:url(:/Images/huss-car.png)</string>
+     <string notr="true">image:url(:/Images/maintenance.png)</string>
     </property>
     <property name="text">
      <string/>
@@ -297,7 +300,7 @@
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">image:url(:/Images/file.png)</string>
     </property>
     <property name="text">
      <string/>
@@ -307,7 +310,7 @@
     <property name="geometry">
      <rect>
       <x>770</x>
-      <y>208</y>
+      <y>170</y>
       <width>80</width>
       <height>61</height>
      </rect>

@@ -87,8 +87,8 @@ void MainWindow::ReadTempAndHumidity()
 {
     QProcess process;
     QStringList args;
+//    args << "cat" << "/home/hussam/test_file";
     args << "cat" << "/dev/dht11km";
-//    args << "cat" << "/dev/dht11km";
     process.start("cat", args);
     if (!process.waitForFinished())
     {
@@ -125,6 +125,7 @@ void MainWindow::on_app_button_clicked()
     static int toggle = 1;
     if(toggle % 2)
     {
+        ui->app_button->setStyleSheet("background-color: black;");
         QSettings settings("Used", "Saved");
         QString index = "Current %1";
         settings.beginGroup("Used");
@@ -136,7 +137,8 @@ void MainWindow::on_app_button_clicked()
     }
     else
     {
-        delete thread;
+        ui->app_button->setStyleSheet("background-color: transparent;");
+//        delete thread;
     }
     toggle++;
 }

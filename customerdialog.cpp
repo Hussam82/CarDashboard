@@ -16,10 +16,9 @@ CustomerDialog::CustomerDialog(QWidget *parent) :
     QDialog(parent)
 {
    /*
-     * This line should be after the QMovie or the animation will overwrite the ui
-     */
+    * This line should be after the QMovie or the animation will overwrite the ui
+    */
     ui->setupUi(this);
-
 
     /* Load previously saved data from ProgDialog.cpp customer save button */
     QSettings settings1("Customer", "Configured");

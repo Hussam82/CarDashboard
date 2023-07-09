@@ -350,9 +350,9 @@ QComboBox::drop-down
 
 QComboBox::down-arrow
 {
-    image: url(://arrow-down.png);
-    width: 8px;
-    height: 8px;
+    image: url(:/Images/down-arrow.png);
+    width: 16px;
+    height: 16px;
 
 }
 
@@ -1291,9 +1291,6 @@ QPushButton:!hover:!pressed#saveButton
     color: white;
 /*    border-color: white;*/
     border: transparent;
-    image: url(":/Images/file.png");
-    background-repeat: no-repeat;
-    background-position: center;
     color: white;
 /*    border-color: white;*/
     border: transparent;
@@ -1477,7 +1474,18 @@ ProgDialog > QGroupBox > QComboBox
     color: black;
 }
 
+ProgDialog > QPushButton:!hover:!pressed#reportButton
+{
+    background-color: green;
+    border: transparent;
+}
 
+ProgDialog > QPushButton:!hover:!pressed#saveButton
+{
+background: green;
+border: transparent;
+background-image: none;
+}
 
 /* Reporting bugs */
 bugReportingDialog > QGroupBox > QPushButton:hover:!pressed
@@ -1487,6 +1495,13 @@ bugReportingDialog > QGroupBox > QPushButton:hover:!pressed
                                       stop:0.33 rgba(214, 223, 226, 255),
                                       stop:0.67 rgba(166, 184, 196, 255),
                                       stop:1 rgba(96, 121, 137, 255));
+    border: transparent;
+    color: transparent;
+}
+
+bugReportingDialog > QGroupBox > QPushButton:!hover:!pressed
+{
+    background-color: transparent;
     border: transparent;
     color: transparent;
 }
@@ -1512,18 +1527,32 @@ bugReportingDialog > QGroupBox
                                       stop: 1 rgba(0, 46, 103, 255));
 }
 
-bugReportingDialog > QGroupBox > QPushButton
-{
-    background: transparent;
-    border-color: transparent;
-    image: url(":/Images/report.png");
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
 /* Add clock to the main window */
 QPushButton#alarmButton
 {
     background: transparent;
     border-color: transparent;
+}
+
+
+
+
+/*QComboBox:hover:!pressed#bugOptions
+{
+    background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1,
+                                      stop:0 rgba(255, 255, 255, 255),
+                                      stop:0.33 rgba(214, 223, 226, 255),
+                                      stop:0.67 rgba(166, 184, 196, 255),
+                                      stop:1 rgba(96, 121, 137, 255));
+    border: transparent;
+}*/
+
+QComboBox:!hover:!pressed#bugOptions
+{
+    background-color: qlineargradient(spread:repeat, x1:1, y1:0, x2:1, y2:1,
+    stop:0 rgba(255, 255, 255, 255),
+    stop:0.33 rgba(214, 223, 226, 255),
+    stop:0.67 rgba(166, 184, 196, 255),
+    stop:1 rgba(96, 121, 137, 255));
+    border: transparent;
 }

@@ -13,6 +13,10 @@
 #include <QMovie>
 #include <QStackedLayout>
 #include "logindialog.h"
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 /* Static slave class variables */
 QList<QListWidgetItem *> ProgDialog::custArr;
@@ -45,16 +49,9 @@ ProgDialog::ProgDialog(QWidget *parent) :
 
     ui->listWidget->setSelectionMode(QAbstractItemView::MultiSelection);
 
-//    /* Remove all items from the list widget */
-//    while (ui->listWidget->count() > 0) {
-//        QListWidgetItem *item = ui->listWidget->takeItem(0);
-//        delete item;
-//    }
-
     /* Load previously saved data */
     QSettings settings("Options", "Configured");
     QString index = "Current %1";
-
 
     settings.beginGroup("Main");
     QVariant savedPathsLen = settings.value(index.arg(0));
@@ -63,7 +60,6 @@ ProgDialog::ProgDialog(QWidget *parent) :
         ui->listWidget->addItem( settings.value( index.arg( QString::number(i) ) ).toString() );
     }
     settings.endGroup();
-//    connect(this, &QDialog::destroyed, this, &ProgDialog::onMyWidgetClosed);
 
     // Loop through the items in the customer list widget
     for (int i = 0; i < CustomerDialog::ui->listWidget_2->count(); i++)
@@ -75,6 +71,46 @@ ProgDialog::ProgDialog(QWidget *parent) :
 
     /* Remove window title */
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::CustomizeWindowHint);
+
+
+    /* Copy the server's reported bugs to the drop down */
+
+    /* Link to the signal and slot */
+    QNetworkRequest request(QUrl("https://adas-eece2023.azurewebsites.net/Bug/Get/ADAS2023"));
+
+    /* Connect to the server */
+    QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+
+    manager->get(request);
+
+    connect(manager, &QNetworkAccessManager::finished, this, [=](QNetworkReply *reply)
+    {
+        if (reply->error() == QNetworkReply::NoError)
+        {
+            QByteArray response = reply->readAll();
+
+            // Parse the JSON array
+            QJsonDocument jsonDoc = QJsonDocument::fromJson(response);
+            if (jsonDoc.isArray())
+            {
+                QJsonArray jsonArray = jsonDoc.array();
+
+                // Process the array elements
+                for (const QJsonValue& value : jsonArray)
+                {
+                    if (value.isString())
+                    {
+                        QString str = value.toString();
+                        ui->comboBox->addItem(str);
+                    }
+                }
+            }
+        }
+        else
+        {
+            qDebug() << "Request failed:" << reply->errorString();
+        }
+    });
 }
 
 ProgDialog::~ProgDialog()

@@ -130,13 +130,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="settings_button">
+            <widget class="QPushButton" name="Info_button">
              <property name="text">
               <string/>
              </property>
              <property name="icon">
               <iconset resource="Resources.qrc">
-               <normaloff>:/Images/gear.png</normaloff>:/Images/gear.png</iconset>
+               <normaloff>:/Images/info.png</normaloff>:/Images/info.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -150,13 +150,13 @@
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="Info_button">
+            <widget class="QPushButton" name="settings_button">
              <property name="text">
               <string/>
              </property>
              <property name="icon">
               <iconset resource="Resources.qrc">
-               <normaloff>:/Images/info.png</normaloff>:/Images/info.png</iconset>
+               <normaloff>:/Images/gear.png</normaloff>:/Images/gear.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -212,25 +212,6 @@
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_6">
-             <property name="font">
-              <font>
-               <family>Ubuntu Thin</family>
-               <pointsize>30</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>Settings</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QLabel" name="label">
              <property name="font">
               <font>
@@ -243,6 +224,25 @@
              </property>
              <property name="text">
               <string>Info</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_6">
+             <property name="font">
+              <font>
+               <family>Ubuntu Thin</family>
+               <pointsize>30</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Settings</string>
              </property>
              <property name="alignment">
               <set>Qt::AlignCenter</set>
