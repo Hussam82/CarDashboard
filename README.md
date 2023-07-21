@@ -6,18 +6,25 @@ ADAS is a software system designed to assist drivers in driving a vehicle safely
 
 ADAS includes the following features:
 
-- Lane Departure Warning: Alerts the driver when the vehicle is drifting out of its lane.
-- Forward Collision Warning: Warns the driver of an impending collision with another vehicle or object.
-- Automatic Emergency Braking: Applies the brakes automatically if a collision is imminent.
-- Blind Spot Detection: Alerts the driver when a vehicle is in their blind spot.
-- Adaptive Cruise Control: Automatically adjusts the vehicle's speed to maintain a safe distance from the vehicle in front.
+- Lane Detection: Alerts the driver when the vehicle is drifting out of its lane.
 - Traffic Sign Recognition: Identifies and displays speed limit signs and other traffic signals.
 - Pedestrian Detection: Detects pedestrians in the path of the vehicle and alerts the driver.
-- Parking Assistance: Assists the driver in parking the vehicle in tight spaces.
+- Traffic Light Detection: Identifies the traffic lights RED or GREEN.
+- Vehicle Detection: Detects vehicles in the road.
+
 
 ## Installation
 
 ADAS is a software system that is typically installed in the vehicle's computer system. The installation process may vary depending on the make and model of the vehicle. It is recommended that the installation is done by a certified professional to ensure proper installation and functionality.
+You will have to install Qt Creator of Qt5 version of 5.15.2.
+1. Clone the Repo
+2. Use the terminal and run the following commands:
+mkdir build
+qmake ..
+make
+./CarDashboard
+Or use Qt Creator and import the .pro file which imports the whole project, then you can build and run the application.
+
 
 ## Usage
 
