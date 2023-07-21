@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTimer>
 #include "customerdialog.h"
+#include "infodialog.h"
 
 // Test Comment
 QT_BEGIN_NAMESPACE
@@ -47,6 +48,7 @@ private:
     QTimer *timer;
     QTimer *tempTimer;
     CustomerDialog * dialog_customer;
+    infoDialog * dialog_info;
     ProcessThread * thread;
 };
 #endif // MAINWINDOW_H

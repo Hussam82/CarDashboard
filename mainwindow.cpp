@@ -34,14 +34,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     /* Construct any dialogs here to avoid re-construction */
     dialog_customer = new CustomerDialog(this);
+    dialog_info = new infoDialog(this);
 }
 
 MainWindow::~MainWindow()
 {
     qDebug() << "Main destructor call";
     delete ui;
-    delete thread;
     delete dialog_customer;
+    delete dialog_info;
 }
 
 void MainWindow::Clock()
@@ -60,27 +61,22 @@ void MainWindow::Clock()
 void MainWindow::SetTempAndHumidityIcons()
 {
    int tempReading = ui->temperature_label->text().toInt();
+   QPixmap pixmap;
    if(tempReading < 15)
    {
-       QPixmap pixmap(":/Images/snow.png");
-       // Create a QIcon from the QPixmap
-       QIcon icon(pixmap);
-       ui->tempImg->setIcon(icon);
+       pixmap.load(":/Images/snow.png");
    }
    else if(tempReading < 25)
    {
-       QPixmap pixmap(":/Images/cloudy.png");
-       // Create a QIcon from the QPixmap
-       QIcon icon(pixmap);
-       ui->tempImg->setIcon(icon);
+       pixmap.load(":/Images/cloudy.png");
+
    }
    else
    {
-       QPixmap pixmap(":/Images/sun.png");
-       // Create a QIcon from the QPixmap
-       QIcon icon(pixmap);
-       ui->tempImg->setIcon(icon);
+       pixmap.load(":/Images/sun.png");
    }
+   QIcon icon(pixmap);
+   ui->tempImg->setIcon(icon);
 }
 
 void MainWindow::ReadTempAndHumidity()
@@ -109,9 +105,13 @@ void MainWindow::ReadTempAndHumidity()
     }
     double tempReading  = numbers[0];
     double humidityReading = numbers[1];
-    ui->temperature_label->setNum(tempReading);
-    ui->humidity_label-> setNum(humidityReading);
-    SetTempAndHumidityIcons();
+    /* Don't print if the result of cat /dev/dht11km is buggy */
+    if( !( (tempReading <= 0.1) || (humidityReading <= 0.1) ) )
+    {
+        ui->temperature_label->setNum(tempReading);
+        ui->humidity_label-> setNum(humidityReading);
+        SetTempAndHumidityIcons();
+    }
 }
 
 void MainWindow::on_settings_button_clicked()
@@ -130,13 +130,16 @@ void MainWindow::on_app_button_clicked()
         QString index = "Current %1";
         settings.beginGroup("Used");
         QString savedPath = settings.value( index.arg(QString::number(1)) ).toString();
-        qDebug() << savedPath;
-        thread = new ProcessThread("/etc/Models/Model_TrafficLightsDetection.py");
-        thread->start();
         settings.endGroup();
+        /* Run the selected model */
+        thread = new ProcessThread(savedPath);
+        thread->start();
     }
     else
     {
+        /* Terminate the current model */
+//        delete thread;
+        thread->terminate();
         ui->app_button->setStyleSheet("background-color: transparent;");
 //        delete thread;
     }
@@ -176,6 +179,7 @@ void MainWindow::on_calendar_button_clicked()
 
 void MainWindow::on_Info_button_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(3);
+    /* Show the dialog */
+    dialog_info->exec();
 }
 

@@ -28,7 +28,7 @@ CustomerDialog::CustomerDialog(QWidget *parent) :
     {
         ui->listWidget_2->addItem(settings1.value( index.arg( QString::number(i) ) ).toString());
     }
-    settings1.endGroup();
+    settings1.endGroup();   
 
     setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::CustomizeWindowHint);
 

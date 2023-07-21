@@ -111,6 +111,13 @@ ProgDialog::ProgDialog(QWidget *parent) :
             qDebug() << "Request failed:" << reply->errorString();
         }
     });
+
+    // Create a QFont instance with the desired font size
+    QFont font;
+    font.setPointSize(20);
+    // set the font for all items in the list
+    ui->listWidget->setFont(font);
+    ui->listWidget_2->setFont(font);
 }
 
 ProgDialog::~ProgDialog()
@@ -123,17 +130,17 @@ ProgDialog::~ProgDialog()
 void ProgDialog::on_addButton_clicked()
 {
     /* Select a file using GUI */
-    QStringList fileName = QFileDialog::getOpenFileNames( this,
-                                                          tr("Select all features"),
-                                                          tr(CVISION_MODELS_DIRECTORY),
-                                                          tr("Files (Model_*.*);;All files (*)"));
-    /* Save path if the file is not empty */
+    QStringList fileName = QFileDialog::getOpenFileNames(this,
+                                                         tr("Select all features"),
+                                                         tr(CVISION_MODELS_DIRECTORY),
+                                                         tr("All Files (*)"));
+    /* Quit if the file is empty */
     if(fileName.isEmpty())
     {
         return;
     }
-    int fileNameLen = fileName.length();
-    int listWidgetLen = ui->listWidget->count();
+    auto fileNameLen = fileName.length();
+    auto listWidgetLen = ui->listWidget->count();
     for(int i = 0; i < listWidgetLen; i++)
     {
         for(int j = 0; j < fileNameLen; j++)
@@ -181,13 +188,6 @@ void ProgDialog::on_deleteButton_clicked()
         removed++;
         ui->listWidget->setCurrentRow(-1);
     }
-    /* Do this if you want to delete only 1 highlighted item using currentRowChanged signal */
- //    if(mnSelected != -1)
- //    {
- //        QListWidgetItem * it = ui->listWidget->takeItem(mnSelected);
- //        delete it;
- //        ui->listWidget->setCurrentRow(-1);
- //    }
 }
 
 void ProgDialog::on_listWidget_currentRowChanged(int currentRow)
@@ -202,7 +202,8 @@ void ProgDialog::on_pushButton_clicked()
     /* Extract the items inside a QStringList */
     QStringList strList;
     /* Iterate over the items in the list and extract their text */
-    for (int i = 0; i < custArr.count(); ++i) {
+    for (int i = 0; i < custArr.count(); ++i)
+    {
         strList.append(custArr[i]->text());
     }
     ui->listWidget_2->clear();
@@ -262,9 +263,4 @@ void ProgDialog::on_saveButton_clicked()
     }
     settings2.endGroup();
     accept();
-}
-
-void ProgDialog::on_back_button_clicked()
-{
-    reject();
 }

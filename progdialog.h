@@ -29,9 +29,6 @@ private slots:
     void on_saveButton_clicked();
 
     void on_listWidget_currentRowChanged(int currentRow);
-//public slots:
-//    void onMyWidgetClosed(QObject *widget);
-    void on_back_button_clicked();
 
 private:
     Ui::ProgDialog *ui;

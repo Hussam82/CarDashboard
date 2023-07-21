@@ -20,7 +20,6 @@
         <file>Images/sad.png</file>
         <file>Images/forwad.png</file>
         <file>Images/open-door.png</file>
-        <file>Images/Automation1.webp</file>
         <file>Images/report.png</file>
         <file>Images/file.png</file>
         <file>Images/bug.png</file>
@@ -29,5 +28,6 @@
         <file>Images/maintenance.png</file>
         <file>Images/fix.png</file>
         <file>Images/down-arrow.png</file>
+        <file>Images/Automation1.webp</file>
     </qresource>
 </RCC>
