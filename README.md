@@ -19,10 +19,15 @@ ADAS is a software system that is typically installed in the vehicle's computer 
 You will have to install Qt Creator of Qt5 version of 5.15.2.
 1. Clone the Repo
 2. Use the terminal and run the following commands:
+
 mkdir build
+
 qmake ..
+
 make
+
 ./CarDashboard
+
 Or use Qt Creator and import the .pro file which imports the whole project, then you can build and run the application.
 
 
