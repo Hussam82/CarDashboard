@@ -23,6 +23,10 @@ ADAS is a software system that is typically installed in the vehicle's computer 
 
 ADAS is designed to assist drivers in driving safely and efficiently. The system provides real-time feedback to the driver, helping them avoid accidents and stay within the speed limit. To use ADAS, the driver must activate the system and follow the instructions provided.
 
+## Screenshots
+![Alt text](https://cdn.discordapp.com/attachments/713200460462293022/1132074215126880326/image.png)
+
+
 ## Limitations
 
 ADAS is designed to assist drivers, but it is not a substitute for safe driving practices. The system may not detect all hazards on the road, and the driver must remain alert at all times. It is also important to note that the system may not function properly in extreme weather conditions or poor visibility.
