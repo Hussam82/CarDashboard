@@ -35,6 +35,9 @@ Or use Qt Creator and import the .pro file which imports the whole project, then
 
 ADAS is designed to assist drivers in driving safely and efficiently. The system provides real-time feedback to the driver, helping them avoid accidents and stay within the speed limit. To use ADAS, the driver must activate the system and follow the instructions provided.
 
+You will have to select the features you need to be activated when the Application button is pressed from Settings button.
+If there is no features available, then you will have to enter the Agency mode and enter you login credentials and add the features you want in the form of Python Code or a compiled version of a C++ code.
+
 ## Screenshots
 ![Alt text](https://cdn.discordapp.com/attachments/713200460462293022/1132074215126880326/image.png)
 
