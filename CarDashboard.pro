@@ -19,7 +19,8 @@ SOURCES += \
     progdialog.cpp \
     logindialog.cpp \
     passdialog.cpp \
-    bugreportingdialog.cpp
+    bugreportingdialog.cpp \
+    infodialog.cpp
 
 HEADERS += \
     customerdialog.h \
@@ -29,7 +30,8 @@ HEADERS += \
     progdialog.h \
     logindialog.h \
     passdialog.h \
-    bugreportingdialog.h
+    bugreportingdialog.h \
+    infodialog.h
 
 FORMS += \
     customerdialog.ui \
@@ -37,7 +39,8 @@ FORMS += \
     progdialog.ui \
     logindialog.ui \
     passdialog.ui \
-    bugreportingdialog.ui
+    bugreportingdialog.ui \
+    infodialog.ui
 
 
 
